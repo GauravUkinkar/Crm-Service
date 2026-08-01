@@ -8,12 +8,12 @@
 		<version>3.3.12</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.salaryService</groupId>
-	<artifactId>com.salaryService</artifactId>
+	<groupId>com.crmService</groupId>
+	<artifactId>com.crmService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>com.salaryService</name>
-	<description>com.salaryService</description>
+	<name>com.crmService</name>
+	<description>com.crmService</description>
 	<url/>
 	<licenses>
 		<license/>

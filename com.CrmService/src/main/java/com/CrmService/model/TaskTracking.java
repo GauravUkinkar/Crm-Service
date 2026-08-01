@@ -1,6 +1,4 @@
-	package com.CrmService.model;
-
-
+package com.CrmService.model;
 
 import java.sql.Timestamp;
 
