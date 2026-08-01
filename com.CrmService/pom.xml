@@ -8,12 +8,12 @@
 		<version>3.3.12</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ApprovalServiceNew</groupId>
-	<artifactId>com.ApprovalServiceNew</artifactId>
+	<groupId>com.salaryService</groupId>
+	<artifactId>com.salaryService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>com.ApprovalServiceNew</name>
-	<description>com.ApprovalServiceNew</description>
+	<name>com.salaryService</name>
+	<description>com.salaryService</description>
 	<url/>
 	<licenses>
 		<license/>
