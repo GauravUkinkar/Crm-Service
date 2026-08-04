@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.CrmService.config.JwtUtil;
 import com.CrmService.dto.Message;
 import com.CrmService.dto.RemakDto;
 import com.CrmService.dto.TaskDto;
@@ -24,19 +25,21 @@ import com.CrmService.dto.TeamTaskSummaryDto;
 import com.CrmService.dto.UpdateTaskDto;
 import com.CrmService.service.TaskService;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @RestController
 @RequestMapping("/Team")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequiredArgsConstructor
 public class TaskController {
 	private final TaskService taskService;
-
-	public TaskController(TaskService taskService) {
-		super();
-		this.taskService = taskService;
-	}
+    private final JwtUtil jwtutil;
+    
+    
 	@PutMapping("/addRemark")
 	public ResponseEntity<Message<RemakDto>> addremark(@RequestBody RemakDto remarkDto){
 		Message<RemakDto> response = taskService.aadRemark(remarkDto);
@@ -76,9 +79,19 @@ public class TaskController {
 	}
 
 	@PostMapping("/addTask")
-	public ResponseEntity<Message<TaskDto>> addTask(@RequestBody TaskDto taskDto) {
+	public ResponseEntity<Message<TaskDto>> addTask(@RequestBody TaskDto taskDto , HttpServletRequest request) {
+		String token = null;
+		for(Cookie cookie : request.getCookies()) {
+			  if ("token".equals(cookie.getName())) {
+				  token = cookie.getValue();
+				  break;
+				
+			}
+		  }
+		int userId = jwtutil.extractUserId(token);
+		taskDto.setUId(userId);
 		Message<TaskDto> response = taskService.addTask(taskDto);
-
+        
 		return new ResponseEntity<>(response, response.getStatus());
 	}
 

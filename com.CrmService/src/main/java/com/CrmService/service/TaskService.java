@@ -12,6 +12,9 @@ import com.CrmService.dto.TaskStatusCountDto;
 import com.CrmService.dto.TeamTaskSummaryDto;
 import com.CrmService.dto.UpdateTaskDto;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 public interface TaskService {
 	public Message<TaskDto> addTask(TaskDto dto);
 	public Message<TaskDto> updateTask(TaskDto dto);

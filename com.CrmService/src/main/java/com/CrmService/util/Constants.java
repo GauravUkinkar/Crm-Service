@@ -67,6 +67,8 @@ public interface Constants {
 	String CATEGORY_NOT_FOUND = "Category not Found";
 	String CATEGORY_DELETED = "Category Deleted";
 	String CATEGORY_FOUND = "CATEGORY fOUND";
+	String INVALID_DATA = "Task scheduling data is required";
+	String TASKSCHEDULAR_ADDED_SUCCESFULLY = "TasksSchedular added successfully";
 	
 	
 	

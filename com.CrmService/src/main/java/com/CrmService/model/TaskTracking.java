@@ -33,6 +33,8 @@ public class TaskTracking {
 	private String assingedBy;
 	private String team;
 	private String username;
+//	private String email;
+
 	private Timestamp  createdDate;
 	private String totalHours;
 	private int startworkingHours;

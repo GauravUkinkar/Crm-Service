@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +22,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import com.CrmService.config.JwtUtil;
 import com.CrmService.dto.Message;
 import com.CrmService.dto.RemakDto;
 import com.CrmService.dto.TaskDto;
@@ -38,6 +42,8 @@ import com.CrmService.repository.TeamRepository;
 import com.CrmService.service.TaskService;
 import com.CrmService.util.Constants;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -52,7 +58,10 @@ public class TaskServiceImpl implements TaskService {
 	public final ClientRepository repository;
 	private final TeamRepository teamRepository;
 	private final ClientRepository clientRepository;
-
+	private final JwtUtil jwtUtil;
+	private final RestTemplate restTemplate;
+	
+	
 	@Override
 	public Message<TaskDto> addTask(TaskDto dto) {
 		Message<TaskDto> message = new Message<>();
@@ -95,17 +104,39 @@ public class TaskServiceImpl implements TaskService {
 				log.error("Error in addTask(): {}", message.getResponseMessage());
 				return message;
 			}
-
-//			User user = userRepository.getByEmail(dto.getUsername());
-			if (user == null) {
-				message.setStatus(HttpStatus.CONFLICT);
-				message.setResponseMessage(Constants.USER_NOT_FOUND);
-				log.error("Error in addTask(): {}", message.getResponseMessage());
+			String url = "https://userservicetest.pandozasolutions.com/AuthController/GetEmployeeByUId/" ;      
+//			if (userEmail == null) {
+//				message.setStatus(HttpStatus.CONFLICT);
+//				message.setResponseMessage(Constants.USER_NOT_FOUND);
+//				log.error("Error in addTask(): {}", message.getResponseMessage());
+//				return message;
+//			}
+			
+			String result;
+			try {
+				result = restTemplate.getForObject(url, String.class, dto.getUId());
+				if (result == null || result.isEmpty() ) {
+					message.setStatus(HttpStatus.BAD_GATEWAY);
+					message.setResponseMessage(Constants.USER_NOT_FOUND);
+					return message;
+					
+				}
+				
+			} catch (Exception e) {
+				message.setStatus(HttpStatus.BAD_REQUEST);
+				message.setResponseMessage(e.getMessage());
 				return message;
 			}
 
+			JSONObject json = new JSONObject(result);
+			JSONObject jsonData = json.getJSONObject("data");
+			TaskTracking tasktrack = new TaskTracking();
+			tasktrack.setUId(dto.getUId());
+			tasktrack.setUsername(jsonData.getString("email"));
+			tasktrack.setEmployeeName(jsonData.getString("employeeName"));
+			
 			TaskTracking task = taskMapper.toTaskTrackerEntity(dto);
-			task.setUser(user); // Associate the task with the user
+//			task.setUser(user); // Associate the task with the user
 			TaskTracking savedTask = taskRepository.save(task);
 
 			TaskDto responseDto = taskMapper.toTaskDto(savedTask);

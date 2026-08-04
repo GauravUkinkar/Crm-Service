@@ -60,7 +60,7 @@ public class TaskMapperImpl implements TaskMapper {
 		entity.setStatus("Pending");
 		entity.setTitle(dto.getTitle());
 		entity.setTeam(dto.getTeam());
-		entity.setUsername(dto.getUsername());
+//		entity.setUsername(dto.getUsername());
 		entity.setCreatingDate(dto.getCreatingDate());
 		entity.setDeletedTag("False");
 		entity.setRemarks(dto.getRemarks());
