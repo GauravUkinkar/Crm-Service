@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: CRM
+
+  datasource:
+    url: jdbc:mysql://182.70.116.71:3306/CRM_system
+    username: developer
+    password: Pan@Server@2025
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        enable_lazy_load_no_trans: true
+
+  servlet:
+    multipart:
+      enabled: true
+      location: C:\Users\info\Documents\HrmsDocuments
+      max-file-size: 2MB
+      max-request-size: 50MB
+        
+
+  mail:
+    host: smtp.zoho.in
+    port: 587
+    username: info@pandozasolutions.com
+    password: XkUHPhE9YX6q
+    properties:
+      mail:  
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  port: 9005
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+logging:
+  level:
+    com.netflix.discovery: DEBUG
+    org.springframework.cloud.netflix.eureka: DEBUG
+
+jwt:
+  secret: Pandoza_Admin

@@ -20,6 +20,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -29,14 +30,19 @@ public class SecurityConfig {
 
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	private final UserDetailsService userDetailsService;
-
+	
+	
+	@PostConstruct
+	public void init() {
+	    System.out.println("******** SecurityConfig Loaded ********");
+	}
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(AbstractHttpConfigurer::disable).cors(cors -> cors.configurationSource(corsConfigurationSource())) // Enable
 																														// CORS
 				.authorizeHttpRequests(registry -> registry
 						.requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/**",
-								"/authController/**")
+								"/AuthController/**")
 						.permitAll().requestMatchers("/admin/**").hasRole("ADMIN").requestMatchers("/employee/**")
 						.hasRole("EMPLOYEE").anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -197,7 +197,7 @@ public class TaskServiceImpl implements TaskService {
 			}
 
 			// Map DTO to entity, preserving user
-			TaskTracking taskToUpdate = taskMapper.toTaskTrackerEntity(dto, existingTask);
+			TaskTracking taskToUpdate = taskMapper.toTaskTrackerEntity(dto);
 
 			// Save updated entity
 			TaskTracking updatedTask = taskRepository.save(taskToUpdate);
@@ -501,10 +501,10 @@ public class TaskServiceImpl implements TaskService {
 	        Page<TaskTracking> taskPage;
 
 	        if (status != null && !status.trim().isEmpty() && !"null".equalsIgnoreCase(status.trim())) {
-	            taskPage = taskRepository.findByUser_IdAndStatusAndDeletedTagNotIgnoreCase(
+	            taskPage = taskRepository.findByUIdAndStatusAndDeletedTagNotIgnoreCase(
 	                    user_id, status.trim(), "True", pageable);
 	        } else {
-	            taskPage = taskRepository.findByUser_IdAndDeletedTagNotIgnoreCase(user_id, "True", pageable);
+	            taskPage = taskRepository.findByUIdAndDeletedTagNotIgnoreCase(user_id, "True", pageable);
 	        }
 
 	        if (taskPage.isEmpty()) {
@@ -799,7 +799,7 @@ public class TaskServiceImpl implements TaskService {
 	public TaskStatusCountDto getTaskStatusCounts(int user_id, String status) {
 	    if (status == null || status.trim().isEmpty() || "null".equalsIgnoreCase(status)) {
 	        // ✅ Return all statuses
-	        return taskRepository.findTaskStatusCountByUserId(user_id);
+	        return taskRepository.findTaskStatusCountByuId(user_id);
 	    } else {
 	        // ✅ Return only count of given status
 	        return taskRepository.findTaskStatusCountByUserIdAndStatus(user_id, status.trim());
@@ -836,7 +836,7 @@ public class TaskServiceImpl implements TaskService {
 //	}
 
 	public ResponseEntity<?> pauseInProgressTasks(int user_id) {
-		List<TaskTracking> tasks = taskRepository.findByuser_idAndStatus(user_id, "InProgress");
+		List<TaskTracking> tasks = taskRepository.findByuIdAndStatus(user_id, "InProgress");
 		ZoneId zoneId = ZoneId.of("Asia/Kolkata");
 		LocalDateTime now = LocalDateTime.now(zoneId);
 		int currentTime = now.getHour() * 100 + now.getMinute();
