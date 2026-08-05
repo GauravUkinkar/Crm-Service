@@ -85,30 +85,31 @@ public class TaskSchedulerServiceImpl implements TaskSchedulerService {
     }
 
 	@Override
-	public Message<TaskSchedulerDto> addTaskSchedular(TaskSchedulerDto request) {
-		Message<TaskSchedulerDto> response = new Message<>();
-		
-	    try {
-	    	if (request == null) {
-	    		response.setStatus(HttpStatus.BAD_REQUEST);
-				response.setResponseMessage(Constants.INVALID_DATA);
-				return response;
-			}
-	    	
-	    	TaskScheduler taskSchedule = taskShedularmap.toTaskScheduler(request);
-	    	taskRepository.save(taskSchedule);
-	    	TaskSchedulerDto dto = taskShedularmap.toTaskSchedulerDto(taskSchedule);
-	    	
-	    	response.setStatus(HttpStatus.OK);
-	    	response.setResponseMessage(Constants.TASKSCHEDULAR_ADDED_SUCCESFULLY);
-	    	return response;
-			
-		} catch (Exception e) {
-			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-			response.setResponseMessage(e.getMessage());
-			return response;
-		}
-	}
+	public Message addTaskSchedular(TaskSchedulerDto request) {
+	    Message<TaskSchedulerDto> response = new Message<>();
 
+	    try {
+	        if (request == null) {
+	            response.setStatus(HttpStatus.BAD_REQUEST);
+	            response.setResponseMessage(Constants.INVALID_DATA);
+	            return response;
+	        }
+
+	        TaskScheduler taskScheduler = taskShedularmap.toTaskScheduler(request);
+	        taskRepository.save(taskScheduler);
+
+	        TaskSchedulerDto dto = taskShedularmap.toTaskSchedulerDto(taskScheduler);
+
+	        response.setStatus(HttpStatus.OK);
+	        response.setResponseMessage(Constants.TASKSCHEDULAR_ADDED_SUCCESFULLY);
+	        response.setData(dto);   
+	        return response;
+
+	    } catch (Exception e) {
+	        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+	        response.setResponseMessage(e.getMessage());
+	        return response;
+	    }
+	}
 
 }

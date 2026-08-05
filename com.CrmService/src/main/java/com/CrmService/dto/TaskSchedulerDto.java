@@ -19,5 +19,6 @@ public class TaskSchedulerDto {
 	private TaskStatus status;
     private LocalTime last_seen ;
     private Date date;
+    private int taskId;
 
 }

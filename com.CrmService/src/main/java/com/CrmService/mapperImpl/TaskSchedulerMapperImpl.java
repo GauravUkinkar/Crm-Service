@@ -20,20 +20,24 @@ public class TaskSchedulerMapperImpl implements TaskSchedulerMapper {
 		dto.setId(TaskScheduler.getId());
 		dto.setUserId(TaskScheduler.getUserId());
 		dto.setStatus(TaskScheduler.getStatus());
-		dto.setLast_seen(LocalTime.now());
-		dto.setDate(new Date());
+		dto.setLast_seen(TaskScheduler.getLast_seen());
+		dto.setDate(TaskScheduler.getDate());
+		dto.setTaskId(TaskScheduler.getTaskId());
 		return dto;
 	}
 
 	@Override
 	public TaskScheduler toTaskScheduler(TaskSchedulerDto dto) {
-		TaskScheduler TaskScheduler = new TaskScheduler();
-		TaskScheduler.setId(dto.getId());
-		TaskScheduler.setUserId(dto.getUserId());
-		TaskScheduler.setStatus(dto.getStatus());
-		dto.setLast_seen(LocalTime.now());
-		dto.setDate(new Date());
-		return TaskScheduler;
+	    TaskScheduler taskScheduler = new TaskScheduler();
+
+	    taskScheduler.setId(dto.getId());
+	    taskScheduler.setUserId(dto.getUserId());
+	    taskScheduler.setStatus(dto.getStatus());
+	    taskScheduler.setLast_seen(dto.getLast_seen());
+	    taskScheduler.setDate(dto.getDate());
+	    taskScheduler.setDate(dto.getDate());
+	    taskScheduler.setTaskId(dto.getTaskId());
+	    return taskScheduler;
 	}
 
 }
