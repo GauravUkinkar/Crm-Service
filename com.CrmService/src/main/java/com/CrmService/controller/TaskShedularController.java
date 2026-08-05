@@ -38,7 +38,7 @@ public class TaskShedularController {
 	
 	private final TaskSchedulerRepository taskShedularService;
 	private final TaskRepository taskRepo;
-	private final TaskSchedulerServiceImpl service;
+	
 	private final JwtUtil jwtUtil;
 	
 	@PostMapping("/heartbeat")
@@ -85,10 +85,5 @@ public class TaskShedularController {
 	    return ResponseEntity.ok("Heartbeat received");
 	}
 	
-	@PostMapping("/addTaskSchedular")
-	public ResponseEntity<Message<TaskSchedulerDto>> addTeam(@RequestBody TaskSchedulerDto dto) {
-		Message<TaskSchedulerDto> message = service.addTaskSchedular(dto);
-		HttpStatus httpStatus = HttpStatus.valueOf(message.getStatus().value());
-		return ResponseEntity.status(httpStatus).body(message);
-	}
+	
 }
