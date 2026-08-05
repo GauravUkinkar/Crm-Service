@@ -43,7 +43,7 @@ public class SecurityConfig {
 				.authorizeHttpRequests(registry -> registry
 						.requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/**",
 								"/AuthController/**")
-						.permitAll().requestMatchers("/admin/**").hasRole("ADMIN").requestMatchers("/employee/**")
+						.permitAll().requestMatchers("/TaskShedular/**").hasRole("ADMIN").requestMatchers("/employee/**")
 						.hasRole("EMPLOYEE").anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authenticationProvider(authenticationProvider());

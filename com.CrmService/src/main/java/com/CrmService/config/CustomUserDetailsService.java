@@ -27,7 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		String url = "https://userservice.pandozasolutions.com/AuthController/getUserByemail/{email}";
+		String url = "http://localhost:9004/AuthController/getUserByemail/{email}";
 		try {
 			// Get raw JSON string response from Auth service with path variable
 			String result = restTemplate.getForObject(url, String.class, username);
@@ -46,7 +46,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 				throw new UsernameNotFoundException("User not found: " + username);
 			}
 
-			String rolesString = user.getRole(); // e.g. "ADMIN,EMPLOYEE"
+			String rolesString = user.getCrmRole(); // e.g. "ADMIN,EMPLOYEE"
 
 			List<GrantedAuthority> authorities = Collections.emptyList();
 			if (rolesString != null && !rolesString.isEmpty()) {

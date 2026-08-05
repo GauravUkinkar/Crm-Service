@@ -1,6 +1,7 @@
 package com.CrmService.mapperImpl;
 
-import java.time.LocalDate;
+
+
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.CrmService.dto.TaskSchedulerDto;
 import com.CrmService.mapper.TaskSchedulerMapper;
 import com.CrmService.model.TaskScheduler;
+import com.CrmService.model.TaskStatus;
 
 
 @Component
@@ -30,13 +32,10 @@ public class TaskSchedulerMapperImpl implements TaskSchedulerMapper {
 	public TaskScheduler toTaskScheduler(TaskSchedulerDto dto) {
 	    TaskScheduler taskScheduler = new TaskScheduler();
 
-	    taskScheduler.setId(dto.getId());
 	    taskScheduler.setUserId(dto.getUserId());
-	    taskScheduler.setStatus(dto.getStatus());
-	    taskScheduler.setLast_seen(dto.getLast_seen());
-	    taskScheduler.setDate(dto.getDate());
-	    taskScheduler.setDate(dto.getDate());
-	    taskScheduler.setTaskId(dto.getTaskId());
+	    taskScheduler.setStatus(TaskStatus.ONLINE);
+	    taskScheduler.setLast_seen(LocalTime.now().withNano(0));
+	    taskScheduler.setDate(new Date());
 	    return taskScheduler;
 	}
 
