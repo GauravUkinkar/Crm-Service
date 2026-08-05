@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.CrmService.dto.ClientDTO;
 import com.CrmService.dto.GetProjectsDto;
 import com.CrmService.dto.Message;
 import com.CrmService.dto.ProjectDTO;
@@ -33,6 +35,8 @@ import lombok.extern.log4j.Log4j2;
 public class ManagerController {	
 	private final TeamService service;
 	private final ProjectService projectservice;
+	public final ClientServiceImpl clientServiceImpl;
+
 	
 // Team
 	@PostMapping("/addTeam")
@@ -101,7 +105,7 @@ public class ManagerController {
 	}
 	
 	@DeleteMapping("/dleteProject")
-	public ResponseEntity<Message<ProjectDTO>> deleteClient(@RequestParam("ProjectId")int id) {
+	public ResponseEntity<Message<ProjectDTO>> deleteProjectClient(@RequestParam("ProjectId")int id) {
 		log.info("In ClientController addClient() with request: {}", id);
 		Message<ProjectDTO> message = projectservice.deleteProject(id);
 		HttpStatus httpStatus = HttpStatus.valueOf(message.getStatus().value());
@@ -130,5 +134,40 @@ public class ManagerController {
 	    public List<ProjectDTO> getAllProjects() {
 	        return projectservice.getAllProjects();
 	    }
+	 
+	 // Client
+	 @PostMapping("/addClient")
+		public ResponseEntity<Message<ClientDTO>> addClient(@RequestBody ClientDTO clientDTO) {
+			log.info("In ClientController addClient() with request: {}", clientDTO);
+			Message<ClientDTO> message = clientServiceImpl.addClient(clientDTO);
+			HttpStatus httpStatus = HttpStatus.valueOf(message.getStatus().value());
+			return ResponseEntity.status(httpStatus).body(message);
+		}
+
+		@PutMapping("/updateClient")
+		public ResponseEntity<Message<ClientDTO>> updateClient(@RequestBody ClientDTO clientDTO) {
+			log.info("In ClientController addClient() with request: {}", clientDTO);
+			Message<ClientDTO> message = clientServiceImpl.updateClient(clientDTO);
+			HttpStatus httpStatus = HttpStatus.valueOf(message.getStatus().value());
+			return ResponseEntity.status(httpStatus).body(message);
+		}
+
+		@GetMapping("/getAllClients")
+		public List<ClientDTO> getAllClients() {
+			return clientServiceImpl.getAllClients();
+		}
+
+		@GetMapping("/getClient/{id}")
+		public ResponseEntity<Message<ClientDTO>> getClient(@PathVariable int id) {
+			Message<ClientDTO> message = clientServiceImpl.getClientById(id);
+			HttpStatus httpStatus = HttpStatus.valueOf(message.getStatus().value());
+			return ResponseEntity.status(httpStatus).body(message);
+		}
+		@DeleteMapping("/dleteClient/{id}")
+		public ResponseEntity<Message<ClientDTO>> deleteClient(@PathVariable int id) {
+			Message<ClientDTO> message = clientServiceImpl.deleteClient(id);
+			HttpStatus httpStatus = HttpStatus.valueOf(message.getStatus().value());
+			return ResponseEntity.status(httpStatus).body(message);
+		}
 
 }
