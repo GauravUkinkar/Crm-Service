@@ -16,7 +16,7 @@ public class TeamMapperImpl implements TeamMapper {
 		dto.setName(team.getName());
 		dto.setMemberCount(team.getMemberCount());
 		dto.setIdealCount(team.getIdealCount());
-		dto.setManegerName(team.getManegerName());
+		dto.setManagerName(team.getManagerName());
 		return dto;
 	}
 
@@ -26,7 +26,7 @@ public class TeamMapperImpl implements TeamMapper {
 		team.setName(dto.getName());
 		team.setMemberCount(dto.getMemberCount());
 		team.setIdealCount(dto.getIdealCount());
-		team.setManegerName(dto.getManegerName());
+		team.setManagerName(dto.getManagerName());
 		return team;
 	}
 

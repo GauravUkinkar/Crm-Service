@@ -19,7 +19,7 @@ public class Team {
 	private int id;
 	private String name;
 	private int memberCount;
-	private String manegerName;
+	private String managerName;
 	private int idealCount;
 	
 
