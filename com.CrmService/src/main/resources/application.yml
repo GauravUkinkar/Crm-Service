@@ -37,7 +37,7 @@ spring:
             enable: true
 
 server:
-  port: 9005
+  port: 9006
 
 eureka:
   client:

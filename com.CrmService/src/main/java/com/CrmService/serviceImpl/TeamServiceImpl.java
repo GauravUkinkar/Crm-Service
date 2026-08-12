@@ -149,7 +149,7 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public Message<TeamDto> GetTeamByManagerName(String manegerName) {
 		Message<TeamDto> message = new Message<>();
-		Team team = teamRepository.getByManegerName(manegerName);
+		Team team = teamRepository.getByManagerName(manegerName);
 		try {
 			if (team != null) {
 				message.setStatus(HttpStatus.OK);

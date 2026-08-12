@@ -12,6 +12,6 @@ public interface TeamRepository extends JpaRepository<Team, Integer> {
 
 	Team getByName(String name);
 
-	Team getByManegerName(String manegerName);
+	Team getByManagerName(String manegerName);
 
 }

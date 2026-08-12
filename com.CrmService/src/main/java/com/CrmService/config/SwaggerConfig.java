@@ -26,7 +26,7 @@ public class SwaggerConfig {
 								.bearerFormat("JWT")))
 
 				.servers(List.of(new Server().url("https://approvalservice.pandozasolutions.com"),
-						new Server().url("http://localhost:9005")));
+						new Server().url("http://localhost:9006")));
 
 	}
 
