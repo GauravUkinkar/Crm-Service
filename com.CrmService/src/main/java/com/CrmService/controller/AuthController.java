@@ -20,12 +20,12 @@ import com.CrmService.config.JwtUtil;
 import com.CrmService.dto.Message;
 import com.CrmService.dto.RemakDto;
 import com.CrmService.dto.TaskDto;
-import com.CrmService.dto.TaskSchedulerDto;
+//import com.CrmService.dto.TaskSchedulerDto;
 import com.CrmService.dto.TaskStatusCountDto;
 import com.CrmService.dto.TeamTaskSummaryDto;
 import com.CrmService.dto.UpdateTaskDto;
 import com.CrmService.service.TaskService;
-import com.CrmService.serviceImpl.TaskSchedulerServiceImpl;
+//import com.CrmService.serviceImpl.TaskSchedulerServiceImpl;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,15 +40,16 @@ import lombok.extern.log4j.Log4j2;
 public class AuthController {
 	private final TaskService taskService;
     private final JwtUtil jwtutil;
-    private final TaskSchedulerServiceImpl service;
+//    private final TaskSchedulerServiceImpl service;
     
     
-    @PostMapping("/addTaskSchedular")
-  	public ResponseEntity<Message<TaskSchedulerDto>> addTeam(@RequestBody TaskSchedulerDto dto) {
-  		Message<TaskSchedulerDto> message = service.addTaskSchedular(dto);
-  		HttpStatus httpStatus = HttpStatus.valueOf(message.getStatus().value());
-  		return ResponseEntity.status(httpStatus).body(message);
-  	}
+//    @PostMapping("/addTaskSchedular")
+//  	public ResponseEntity<Message<TaskSchedulerDto>> addTeam(@RequestBody TaskSchedulerDto dto) {
+//  		Message<TaskSchedulerDto> message = service.addTaskSchedular(dto);
+//  		HttpStatus httpStatus = HttpStatus.valueOf(message.getStatus().value());
+//  		return ResponseEntity.status(httpStatus).body(message);
+//  	}
+    
 	@PutMapping("/addRemark")
 	public ResponseEntity<Message<RemakDto>> addremark(@RequestBody RemakDto remarkDto){
 		Message<RemakDto> response = taskService.aadRemark(remarkDto);
